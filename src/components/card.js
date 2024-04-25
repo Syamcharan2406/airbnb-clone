@@ -1,20 +1,35 @@
 import React from "react";
-import Star from "../images/star.png";
+import Star from "./pictures/star.png";
 
-function Card(props) {
+export default function Card(props) {
+    let badgeText
+    if (props.openSpots === 0) {
+        badgeText = "SOLD OUT"
+    } else if (props.location === "Online") {
+        badgeText = "ONLINE"
+    }
+    
     return (
         <div className="card">
-            <img src={`../images/${props.img}`} className="card-image" alt="katie zaferes in swim suit"/>
-            <div className="card-stats">
-                <img src={Star} className="card-star" alt="star symbol"/>
-                <span>{props.rating}</span>
-                <span className="gray">({props.reviewCount}) • </span>
+            {
+                badgeText && 
+                <div className="card--badge">{badgeText}</div>
+            }
+            <img 
+                src={`../images/${props.coverImg}`} 
+                className="card--image" 
+                alt="error"
+            />
+            <div className="card--stats">
+                <img src={Star} className="card--star" alt="star"/>
+                <span>{props.stats.rating}</span>
+                <span className="gray">({props.stats.reviewCount}) • </span>
                 <span className="gray">{props.location}</span>
             </div>
-            <h3>{props.title}</h3>
-            <p><span className="bold">From ${props.price}</span> / person</p>
+            <p className="card--title">{props.title}</p>
+            <p className="card--price">
+                <span className="bold">From ${props.price}</span> / person
+            </p>
         </div>
-    );
+    )
 }
-
-export default Card;
